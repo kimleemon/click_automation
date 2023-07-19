@@ -8,3 +8,4 @@ Install
 5. Robot framework %pip3 install robotframework-appiumlibrary
 6. SeleniumLibrary %pip3 install --upgrade robotframework-selenium2library
 7. AppiumLibrary
+8. App apk. android
