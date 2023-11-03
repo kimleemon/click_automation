@@ -1,4 +1,4 @@
-# click_automation
+# click_automation #
 Automation test for MTL Click regression Testing.
 Install
 1. Android studio
