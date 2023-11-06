@@ -89,30 +89,13 @@ Enter to homepage
     Run Keyword If  '${CreateButtonVisibleOk}'=='True'    click element   xpath=//android.widget.TextView[@text="OK"]
         sleep   5S
 
-Download_Doc
-    Log To Console    'before click Document Download'
-    ${CreateButtonVisibleIndClaim1}=  Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="Purchase Insurance Online"]
-    Run Keyword If  '${CreateButtonVisibleIndClaim1}'=='True'     Log To Console    'Purchase Insurance Online'
+Online_Sale
+    Log To Console    'before click Purchase Insurance Online'
+    ${visible_onlinr_sale}=  Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="Purchase Insurance Online"]
+    Run Keyword If  '${visible_onlinr_sale}'=='True'     click element     xpath=//android.widget.TextView[@text="Purchase Insurance Online"]
+    Log To Console    'Purchase Insurance Online'
+    capture page screenshot   img_Purchase_Insurance_Online.png
     
-    # ${visible_dowload_doc}=  Run Keyword And Return Status   Element Should Be Visible    xpath=//android.widget.TextView[@text="Document Download"] 
-    # Run Keyword If  '${visible_dowload_doc}'=='True'    Log To Console    'Document Download'
-    # ...    click element    xpath=/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[6]
-    #Log To Console    'Document Download'
-    #Wait Until Page Contains    Please choose document    30S
-
-    
-
-    #${visible_group_doc}=  Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="Group manual and document"]
-    #Run Keyword If  '${visible_group_doc}'=='True'    click element    xpath=//android.widget.TextView[@text="Group manual and document"]
-    
-    #Wait Until Page Contains    Group manual and document    30S
-
-    #${visible_view_doc}=  Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="View"]
-    #Run Keyword If  '${visible_view_doc}'=='True'    click element    xpath=//android.widget.TextView[@text="View"]
-    #Run Keyword If  '${visible_view_doc}'=='True'     capture page screenshot   img_Download_Doc.png
-
-
-
 
 
 *** Test Cases ***
@@ -139,5 +122,5 @@ Login
     Enter Username_Password   
     Sleep  3s
     Enter to homepage
-    Download_Doc
+    Online_Sale
   
