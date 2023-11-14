@@ -35,9 +35,9 @@ Open Test Application
             ...    deviceName=emulator-5554
             ...    platformName=Android
             ...    platformVersion=13
-            ...    appPackage=com.thmtlphoenix
-            ...    appActivity=com.thmtlphoenix.MainActivity
-            ...    appWaitPackage=com.thmtlphoenix
+            ...    appPackage=com.thmtlphoenix.uat
+            ...    appActivity=com.thmtlphoenix.uat.MainActivity
+            ...    appWaitPackage=com.thmtlphoenix.uat
 
 Start
     Wait Until Element Is Visible     ${let_start_btn}    30S
@@ -52,34 +52,45 @@ Enter Username_Password
     Input Password    ${input_pass}    Ilp006
     Click Element    ${ctn_btn_login_page}
 
-Enter to homepage
-    #authenContinue
+AuthenContinue
     Wait Until Page Contains    Continue   30S
-    Wait Until Element Is Visible     ${ctn_authen_btn}    30S
+    Wait Until Element Is Visible     ${ctn_authen_btn}    60S
     ${authenContinue}=   Run Keyword And Return Status    Element Should Be Visible   ${ctn_authen_btn} 
     Run Keyword If  '${authenContinue}'=='True'    click element   ${ctn_authen_btn} 
     #no_btn_quick_login
     Wait Until Element Is Visible     ${no_btn_quick_login}    30S
+
+QuickLogin
     ${quickLogin}=   Run Keyword And Return Status    Element Should Be Visible   ${no_btn_quick_login} 
     Run Keyword If  '${quickLogin}'=='True'    click element   ${no_btn_quick_login} 
     #done_btn_thank_you_page
     Wait Until Element Is Visible     ${done_btn_thank_you_page}    40S
     ${doneThakyou}=   Run Keyword And Return Status    Element Should Be Visible   ${done_btn_thank_you_page} 
     Run Keyword If  '${doneThakyou}'=='True'    click element   ${done_btn_thank_you_page} 
-    #got_it_btn
+GotItBtn
+#got_it_btn
     Wait Until Element Is Visible     xpath=/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView    30S
     ${gotItBtn}=   Run Keyword And Return Status    Element Should Be Visible   xpath=/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView
     Run Keyword If  '${gotItBtn}'=='True'    click element    xpath=/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView
-    # #skip_btn
+SkipBtn
+#skip_btn
     Wait Until Element Is Visible     xpath=//android.widget.TextView[@text="Skip"]    30S
     ${CreateButtonVisibleskip}=  Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="Skip"]
     Run Keyword If  '${CreateButtonVisibleskip}'=='True'    click element   xpath=//android.widget.TextView[@text="Skip"]
 
-# # if news popup appear
-# Diglog Gift
-#     ${CreateButtonVisibleCancel}  Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="Cancel"]
-#     Run Keyword If  '${CreateButtonVisibleCancel}'=='True'    click element   xpath=//android.widget.TextView[@text="Cancel"]
-#     sleep   5S
+Dialog
+# if news popup appear
+         ${CreateButtonVisibleCancel}=  Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="Cancel"]
+    Run Keyword If  '${CreateButtonVisibleCancel}'=='True'    click element   xpath=//android.widget.TextView[@text="Cancel"]
+        sleep   5S
+    # if news popup appear
+         ${CreateButtonVisibleClose}=  Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="Close"]
+    Run Keyword If  '${CreateButtonVisibleClose}'=='True'    click element   xpath=//android.widget.TextView[@text="Close"]
+    # if news popup appear
+        sleep   5S
+         ${CreateButtonVisibleOk}=  Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="OK"]
+    Run Keyword If  '${CreateButtonVisibleOk}'=='True'    click element   xpath=//android.widget.TextView[@text="OK"]
+        sleep   5S
 
 My Healthcare 
     Log To Console    'before click healthcare'
@@ -165,7 +176,18 @@ Login
     Click Element    ${btn_login}
     Enter Username_Password   
     Sleep  3s
-    Enter to homepage
+Authentication
+    [Tags]    Authentication MTL Click
+    AuthenContinue
+    Log To Console    'Test eiei2'
+    QuickLogin
+    Log To Console    'Test eiei3'
+    GotItBtn
+    Log To Console    'Test eiei4'
+    SkipBtn
+    Log To Console    'Test eiei5'
+    # Dialog
+    # Log To Console    'Test eiei6'
     Sleep  1s
     My Healthcare
     

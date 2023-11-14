@@ -54,29 +54,6 @@ Enter Username_Password
     Input Password    ${input_pass}    Rr123123
     Click Element    ${ctn_btn_login_page}
 
-Enter to homepage
-    #authenContinue
-    Wait Until Page Contains    Continue   30S
-    Wait Until Element Is Visible     ${ctn_authen_btn}    60S
-    ${authenContinue}=   Run Keyword And Return Status    Element Should Be Visible   ${ctn_authen_btn} 
-    Run Keyword If  '${authenContinue}'=='True'    click element   ${ctn_authen_btn} 
-    #no_btn_quick_login
-    Wait Until Element Is Visible     ${no_btn_quick_login}    30S
-    ${quickLogin}=   Run Keyword And Return Status    Element Should Be Visible   ${no_btn_quick_login} 
-    Run Keyword If  '${quickLogin}'=='True'    click element   ${no_btn_quick_login} 
-    #done_btn_thank_you_page
-    Wait Until Element Is Visible     ${done_btn_thank_you_page}    40S
-    ${doneThakyou}=   Run Keyword And Return Status    Element Should Be Visible   ${done_btn_thank_you_page} 
-    Run Keyword If  '${doneThakyou}'=='True'    click element   ${done_btn_thank_you_page} 
-    #got_it_btn
-    Wait Until Element Is Visible     xpath=/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView    30S
-    ${gotItBtn}=   Run Keyword And Return Status    Element Should Be Visible   xpath=/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView
-    Run Keyword If  '${gotItBtn}'=='True'    click element    xpath=/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView
-    #skip_btn
-    Wait Until Element Is Visible     xpath=//android.widget.TextView[@text="Skip"]    30S
-    ${CreateButtonVisibleskip}=  Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="Skip"]
-    Run Keyword If  '${CreateButtonVisibleskip}'=='True'    click element   xpath=//android.widget.TextView[@text="Skip"]
-
 AuthenContinue
     Wait Until Page Contains    Continue   30S
     Wait Until Element Is Visible     ${ctn_authen_btn}    60S
@@ -124,58 +101,8 @@ Diglog Gift
     Run Keyword If  '${CreateButtonVisibleCancel}'=='True'    click element   xpath=//android.widget.TextView[@text="Cancel"]
     sleep   5S
 
-My Policy Level
-    Wait Until Element Is Visible   ${policy_btn}    60S
-    Click Element    ${policy_btn}
-    Sleep     3S
-    Wait Until Element Is Visible   xpath=//android.widget.TextView[@text="Skip"]    60S
-    Click Element    xpath=//android.widget.TextView[@text="Skip"]
-    Wait Until Element Is Visible    xpath=//android.widget.TextView[@text="My Policies"]
-    Sleep     3S
 
-    # My policy level 1
-    ${visible_myPolicy_level_1}    Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="Your Coverage"]
-    Run Keyword If  '${visible_myPolicy_level_1}'=='True'     capture page screenshot   img_policyLevel1.png
-    #sleep   3S
-    Log To Console  "My policy level 1"
-    # My policy level 2
-    ${visible_myPolicy_level_2}    Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="Life"]
-    Run Keyword If  '${visible_myPolicy_level_2}'=='True'     click element   xpath=//android.widget.TextView[@text="Life"]    
-    #sleep   3S
-    capture page screenshot   img_policyLevel2.png
-    #sleep   3S
-    Log To Console  "My policy level 2"
-    # My policy level 3
-    ${visible_myPolicy_level_3}    Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="My Life Coverage"]
-    Run Keyword If  '${visible_myPolicy_level_2}'=='True'    click element   xpath=//android.widget.TextView[@text="VALID TILL"] 
-    Wait Until Page Contains    EFFECTIVE DATE   60S
-    capture page screenshot   img_policyLevel3.png
-    #sleep   3S
-    Log To Console  "My policy level 3"
-
-    ${back_button}    Run Keyword And Return Status   Element Should Be Visible   ${back_btn}
-    Run Keyword If  '${back_button}'=='True'    
-    ...    Wait Until Element Is Visible    ${back_btn}
-    click element    ${back_btn}
     
-    ${back_btn_my_life_coverrage}    Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="My Life Coverage"]
-    Run Keyword If  '${back_btn_my_life_coverrage}'=='True'
-    ...    Wait Until Element Is Visible    ${back_btn_my_life_coverrage}   
-    Wait Until Element Is Visible    ${back_btn}
-    click element    ${back_btn}
-    Wait Until Element Is Visible    ${home_btn}
-    click element    ${home_btn}
-    Log To Console  "my_life_coverrage"
-
-
-My digicard
-    Wait Until Element Is Visible    ${insurance_card}
-    click element    ${insurance_card}
-    Wait Until Element Is Visible    xpath=//android.widget.TextView[@text="My Digicards"]
-    Log To Console  "My digicard"
-    capture page screenshot   img_digicard.png
-
-
 
 *** Test Cases ***
 Login
@@ -216,12 +143,12 @@ Authentication
     # Log To Console    'Test eiei6'
     # Stop Screen Recording
     # Diglog Gift
-    # Log To Console    'banner_homepage'
-    # Swipe    0    1000   0    100
-    # ${visible_home}=  Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="Home"]
-    # Run Keyword If  '${visible_home}'=='True'    capture page screenshot   img_banner_homepage.png
-    My Policy Level
-    # My digicard
+    Log To Console    'banner_homepage'
+    Swipe    0    1000   0    100
+    ${visible_home}=  Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="Home"]
+    Run Keyword If  '${visible_home}'=='True'    capture page screenshot   img_banner_homepage.png
+   
+   
    
 
  

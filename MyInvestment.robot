@@ -11,13 +11,11 @@ ${REMOTE_URL}=  http://localhost:4723/wd/hub
 ${allow_noti}=  xpath=//hierarchy/android.widget.FrameLayout
 ${allow_btn}=  xpath=//hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/android.widget.Button[1]
 ${let_start_btn}=   xpath=//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup
-
-${term_and_cond}=   xpath=//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup
-${dialog_term}=     xpath=//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup
+${term_and_cond}=   xpath=//android.widget.TextView[@text="Accept"]
 ${accept_consent_product}=   xpath=//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup
 ${accept_consent_personal}=    xpath=//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup
-${accept_consent_offer}=     xpath=//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView
-${accept_consent_business}=  xpath=//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup
+${accept_consent_offer}=     xpath=//android.widget.TextView[@text="Accept"]
+${accept_consent_business}=  xpath=//android.widget.TextView[@text="Accept"]
 ${btn_login}=    xpath=//android.widget.TextView[@text="Login"]
 ${input_username}=  xpath=//*[@text="Enter here"] 
 ${input_pass}=      xpath=//*[@text="Enter here"]
@@ -27,9 +25,12 @@ ${no_btn_quick_login}=    xpath=//android.widget.TextView[@text="No"]
 ${done_btn_thank_you_page}=  xpath=//android.widget.TextView[@text="Done"]
 ${got_it_btn}=    xpath=//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView
 ${skip_btn}=      xpath=//android.widget.TextView[@text="Skip"]
-${smc_btn}=    xpath=/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[3]/android.widget.ImageView    
-${insurance_card}=    xpath=//android.widget.TextView[contains(@text, 'Insurance card')]
-
+${policy_btn}=    xpath=//android.widget.TextView[@text="Policy"]
+${home_btn}=    xpath=//android.widget.TextView[@text="Home"]
+${back_btn}=      xpath=//android.widget.ImageView
+${insurance_card}=    xpath=//android.widget.TextView[@text="Insurance card"]
+${dialog_term}=     xpath=//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup
+${select_item}=     xpath=/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup[2]/android.widget.ImageView
 *** Keywords ***
 Open Test Application
     Open Application    http://localhost:4723/wd/hub
@@ -39,24 +40,17 @@ Open Test Application
             ...    appPackage=com.thmtlphoenix.uat
             ...    appActivity=com.thmtlphoenix.uat.MainActivity
             ...    appWaitPackage=com.thmtlphoenix.uat
-# Open Test Application
-#     Open Application    http://localhost:4723/wd/hub
-#             ...    deviceName=emulator-5554
-#             ...    platformName=Android
-#             ...    platformVersion=13
-#             ...    appPackage=com.thmtlphoenix
-#             ...    appActivity=com.thmtlphoenix.MainActivity
-#             ...    appWaitPackage=com.thmtlphoenix
+
 Start
     Wait Until Element Is Visible     ${let_start_btn}    30S
     ${letstart}=   Run Keyword And Return Status   Element Should Be Visible   ${let_start_btn} 
      Run Keyword If  '${letstart}'=='True'    
      ...    Log To Console    '${letstart}, Test'
-     click Element   ${let_start_btn} 
-     
+     click Element   ${let_start_btn}
+
 Enter Username_Password
     Wait Until Element Is Visible     ${input_username}    30S
-    Input Text        ${input_username}    Testg108  
+    Input Text        ${input_username}    Testp21  
     Input Password    ${input_pass}    Rr123123
     Click Element    ${ctn_btn_login_page}
 
@@ -82,19 +76,6 @@ Enter to homepage
     Wait Until Element Is Visible     xpath=//android.widget.TextView[@text="Skip"]    30S
     ${CreateButtonVisibleskip}=  Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="Skip"]
     Run Keyword If  '${CreateButtonVisibleskip}'=='True'    click element   xpath=//android.widget.TextView[@text="Skip"]
-
-    # # if news popup appear
-    #      ${CreateButtonVisibleCancel}=  Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="Cancel"]
-    # Run Keyword If  '${CreateButtonVisibleCancel}'=='True'    click element   xpath=//android.widget.TextView[@text="Cancel"]
-    #     sleep   5S
-    # # if news popup appear
-    #      ${CreateButtonVisibleClose}=  Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="Close"]
-    # Run Keyword If  '${CreateButtonVisibleClose}'=='True'    click element   xpath=//android.widget.TextView[@text="Close"]
-    # # if news popup appear
-    #     sleep   5S
-    #      ${CreateButtonVisibleOk}=  Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="OK"]
-    # Run Keyword If  '${CreateButtonVisibleOk}'=='True'    click element   xpath=//android.widget.TextView[@text="OK"]
-    #     sleep   5S
 
 AuthenContinue
     Wait Until Page Contains    Continue   30S
@@ -136,35 +117,60 @@ Dialog
     Run Keyword If  '${CreateButtonVisibleOk}'=='True'    click element   xpath=//android.widget.TextView[@text="OK"]
         sleep   5S
 
-Online_Sale
-    Log To Console    'before click Purchase Insurance Online'
-    Wait Until Element Is Visible    xpath=//*[@resource-id='onlineSale']    30S
-    # Click Element    xpath=//android.widget.TextView[contains(@text,"Purchase Insurance Online")]
-    # Log To Console    'Purchase Insurance Online'
-    # capture page screenshot   img_Purchase_Insurance_Online.png
 
-    # Wait Until Element Is Visible    xpath=//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.TextView    10S 
-    #click element     xpath=//android.widget.TextView[contains(@text,"Purchase Insurance Online")]
-    # ${visible_online_sale}=  Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[contains(@text,"Purchase Insurance Online")]
-    # Run Keyword If  '${visible_online_sale}'=='True'     click element     xpath=//android.widget.TextView[contains(@text,"Purchase Insurance Online")]
-    # Log To Console    'Purchase Insurance Online'
-    # capture page screenshot   img_Purchase_Insurance_Online.png
-    
-    # Sleep    5s
-    # ${onlineSale}=  Run Keyword And Return Status   Element Should Be Visible   xpath=//*[@reso_urce-id='onlineSale']
-    # Sleep    5s
-    # Run Keyword If  '${onlineSale}'=='True'     click element    xpath=//*[@reso_urce-id='onlineSale']
-    # Log To Console    'Test'
-    # Sleep    5s
-    # capture page screenshot   img_Purchase_Insurance_Online.png
-    # # Log To Console    'Purchase Insurance Online'
+# if news popup appear
+Diglog Gift
+    ${CreateButtonVisibleCancel}  Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="Cancel"]
+    Run Keyword If  '${CreateButtonVisibleCancel}'=='True'    click element   xpath=//android.widget.TextView[@text="Cancel"]
+    sleep   5S
 
-    ${onlineSale}=  Run Keyword And Return Status   Element Should Be Visible   xpath=//*[@resource-id='onlineSale']
-    # Sleep    5s
-    Run Keyword If  '${onlineSale}'=='True'     click element    xpath=//*[@resource-id='onlineSale']
-    ...    ELSE   Log To Console    'Test_1'
+My Policy Investment
+    Wait Until Element Is Visible   ${policy_btn}    60S
+    Click Element    ${policy_btn}
+    Sleep     3S
+    Wait Until Element Is Visible   xpath=//android.widget.TextView[@text="Skip"]    60S
+    Click Element    xpath=//android.widget.TextView[@text="Skip"]
+    Wait Until Element Is Visible    xpath=//android.widget.TextView[@text="My Policies"]
+    Sleep     3S
+
+    Swipe    1000    1000   300    0    100
+
+    # # My policy level 1
+    # ${visible_myPolicy_level_1}    Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="Your Coverage"]
+    # Run Keyword If  '${visible_myPolicy_level_1}'=='True'     capture page screenshot   img_policyLevel1.png
+    # #sleep   3S
+    # Log To Console  "My policy level 1"
+    # # My policy level 2
+    # ${visible_myPolicy_level_2}    Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="Life"]
+    # Run Keyword If  '${visible_myPolicy_level_2}'=='True'     click element   xpath=//android.widget.TextView[@text="Life"]    
+    # #sleep   3S
+    # capture page screenshot   img_policyLevel2.png
+    # #sleep   3S
+    # Log To Console  "My policy level 2"
+    # # My policy level 3
+    # ${visible_myPolicy_level_3}    Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="My Life Coverage"]
+    # Run Keyword If  '${visible_myPolicy_level_2}'=='True'    click element   xpath=//android.widget.TextView[@text="VALID TILL"] 
+    # Wait Until Page Contains    EFFECTIVE DATE   60S
+    # capture page screenshot   img_policyLevel3.png
+    # #sleep   3S
+    # Log To Console  "My policy level 3"
+
+    # ${back_button}    Run Keyword And Return Status   Element Should Be Visible   ${back_btn}
+    # Run Keyword If  '${back_button}'=='True'    
+    # ...    Wait Until Element Is Visible    ${back_btn}
+    # click element    ${back_btn}
     
-    
+    # ${back_btn_my_life_coverrage}    Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="My Life Coverage"]
+    # Run Keyword If  '${back_btn_my_life_coverrage}'=='True'
+    # ...    Wait Until Element Is Visible    ${back_btn_my_life_coverrage}   
+    # Wait Until Element Is Visible    ${back_btn}
+    # click element    ${back_btn}
+    # Wait Until Element Is Visible    ${home_btn}
+    # click element    ${home_btn}
+    # Log To Console  "my_life_coverrage"
+
+
+
 
 
 *** Test Cases ***
@@ -204,7 +210,16 @@ Authentication
     Log To Console    'Test eiei5'
     # Dialog
     # Log To Console    'Test eiei6'
-OnlineSale
-    Online_Sale
-    Log To Console    'Online sale'
-  
+    # Stop Screen Recording
+    # Diglog Gift
+    # Log To Console    'banner_homepage'
+    # Swipe    0    1000   0    100
+    # ${visible_home}=  Run Keyword And Return Status   Element Should Be Visible   xpath=//android.widget.TextView[@text="Home"]
+    # Run Keyword If  '${visible_home}'=='True'    capture page screenshot   img_banner_homepage.png
+    My Policy Investment
+    # My digicard
+   
+
+ 
+   
+    
